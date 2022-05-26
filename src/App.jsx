@@ -10,6 +10,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Page from "./Page";
 import Home from "./routes/Home";
+import System from "./routes/System";
 
 // const styles = {
 //   global: props => ({
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Page />}>
             <Route path="/" element={<Home />} />
+            <Route path="/system" element={<System />} />
           </Route>
         </Routes>
       </BrowserRouter>

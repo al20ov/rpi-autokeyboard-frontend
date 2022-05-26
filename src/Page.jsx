@@ -5,17 +5,24 @@ import {
   Heading,
   HStack,
   Link,
+  Stack,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
+
 import { Link as RRLink, Outlet } from "react-router-dom";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
+import { FaChartArea, FaHome } from "react-icons/fa";
+
 export default function Page() {
-  const borderColor = useColorModeValue('gray.100', 'gray.700');
+  const borderColor = useColorModeValue("gray.100", "gray.700");
+  const location = useLocation().pathname;
 
   return (
-    <Box>
-      <Flex
+    <Flex direction="column" height="100vh">
+      <Stack
+        direction="row"
         p="4"
         pl="6"
         pr="6"
@@ -23,8 +30,9 @@ export default function Page() {
         justifyContent="space-between"
         borderBottomColor={borderColor}
         borderBottomWidth="thin"
+        spacing={4}
       >
-        <Heading size="md" mr={8}>
+        <Heading size="md">
           autokeyboard
         </Heading>
         <HStack as="nav" spacing="4">
@@ -32,24 +40,37 @@ export default function Page() {
             as={RRLink}
             to="/"
           >
-            <Button variant="link" p={2}>
+            <Button
+              colorScheme={location === "/" ? "blue" : ""}
+              leftIcon={<FaHome />}
+              variant="link"
+              p={2}
+            >
               Home
             </Button>
           </Link>
           <Link
             as={RRLink}
-            to="/"
+            to="/system"
           >
-            <Button variant="link" p={2}>
-              Settings
+            <Button
+              colorScheme={location === "/system" ? "blue" : ""}
+              leftIcon={<FaChartArea />}
+              variant="link"
+              p={2}
+            >
+              System
             </Button>
           </Link>
         </HStack>
         <HStack flex={1} justifyContent="right">
           <ColorModeSwitcher />
         </HStack>
-      </Flex>
-      <Outlet />
-    </Box>
+      </Stack>
+
+      <Box flex={1} overflowY="scroll">
+        <Outlet />
+      </Box>
+    </Flex>
   );
 }
