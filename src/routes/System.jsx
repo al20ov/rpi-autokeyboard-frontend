@@ -5,12 +5,13 @@ import {
   Box,
   Button,
   ButtonGroup,
+  Center,
   Container,
+  Flex,
   Heading,
   HStack,
   Spinner,
   StackDivider,
-  Flex,
   Stat,
   StatGroup,
   StatHelpText,
@@ -51,21 +52,22 @@ export default function System() {
         <Box>
           <HStack justifyContent="space-between">
             <Heading size="sm">{config.rootUrl}</Heading>
-            <Badge colorScheme="green">Online</Badge>
+            {memInfo === null
+              ? <Badge colorScheme="red">Offline</Badge>
+              : <Badge colorScheme="green">Online</Badge>}
           </HStack>
         </Box>
-        {memInfo === null ? <Spinner /> : <Memory memInfo={memInfo} />}
+        {memInfo === null ? <Center m={4}><Spinner /></Center> : <Memory memInfo={memInfo} />}
 
         <Box p={2}>
           <Heading size="md" mb={4}>Power</Heading>
-          <Alert status="warning" mb={4} borderRadius={8}>
+          <Alert status="warning" mb={4} borderRadius={8} fontWeight="semibold">
             <AlertIcon />
-            Make sure you have physical access to the Pi to turn it back on
-            before you turn it off.
+            Make sure you have physical access to the Pi before you turn it off.
           </Alert>
           <Flex justifyContent="end">
             <ButtonGroup>
-              <Button colorScheme="red">Power off</Button>
+              <Button disabled={memInfo === null} colorScheme="red">Power off</Button>
             </ButtonGroup>
           </Flex>
         </Box>
